@@ -10,7 +10,7 @@ export default function UserPosts(props) {
         fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
             .then(res => res.json())
             .then(data => setPosts(data));
-    }, [username])
+    }, [username, id])
 
     const postElements = posts.map(post => {
         return (
