@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export default function UserTable(props) {
     
     const tableElements = props.users.map(user => {
-        const { name, username, email, website, id } = user
+        const { username, email, website } = user
         return (
             <tr>
                 <td><Link to={`/${username}`}>{username}</Link></td>
