@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import { Routes, Route } from "react-router-dom";
+import UserTable from './UserTable';
+import UserPosts from './UserPosts';
+
 
 function App() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(data => setUsers(data))
+  }, []) 
+
+  const userRoutes = users.map(user => {
+    return (
+      <Route path={user.username} element={<UserPosts user={user} />} />
+    )
+  })
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className='main-header'>Ksense Users</h1>
+      <UserTable users={users} />
+      <Routes>
+        {userRoutes}
+      </Routes>
     </div>
   );
 }
